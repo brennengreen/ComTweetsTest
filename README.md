@@ -2,7 +2,7 @@
 
 ## Things To Do:
 
-1. Create an element in index.pug that will contain all the tweets
+1. Create an element in index.pug that will contain all the tweets - Joshua
 	* Use appropriate sizing I'm thinking we should be able to display 15 tweets
 	* Maybe look up similar examples
 2. Integrate the javascript twitter api to load tweets on page load

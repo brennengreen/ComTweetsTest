@@ -6,3 +6,19 @@ body {
 a {
   color: #00B7FF;
 }
+
+tr th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+#TweetTable {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 35vw;
+}
+
+#TableColumnHeaders {
+  text-align: left;
+}

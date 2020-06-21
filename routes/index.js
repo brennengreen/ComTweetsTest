@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Twitter = require('twitter')
 
-// TODO: Move to env variables
 class Tweet {
   constructor(author, msg) {
     this.author = author;
@@ -11,6 +10,7 @@ class Tweet {
 }
 let Tweets = [];
 let Topic = 'tennessee';
+// TODO: Move to env variables
 var client = new Twitter ({
   consumer_key: 'E2u0Wq5PKgDQgN3MsVVW5hJNb',
   consumer_secret: 'UuLZXf4eP2B0Ujm4jdqLSpfOZ7esxxdr32XQDsVEllMXV6THdl',
@@ -30,14 +30,26 @@ stream.on('error', function(error) {
   throw error;
 });
 
+// Trending
+newTrendingTweet = new Tweet('test', 'test');
+
+// 2471217 Philidelphia
+var trend = 'kentucky'; // This is repalced below by an actually rending topic, but this makes the compiler happy
+client.get('trends/place', {id: 1}, function(error, tweets, response) {
+  if(error) throw error;
+
+  trend = tweets[0].trends[0].name;
+
+  var trendingStream = client.stream('statuses/filter', {track: trend});
+  trendingStream.on('data', function(event) {
+    newTrendingTweet.author = event.user.name
+    newTrendingTweet.message = event.text;
+  })
+})
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Com Tweet Filter', tweets: Tweets, filter_topic: Topic });
-});
-
-router.post('/filter', function(req, res, next) {
-  res.render('index', { title: 'Com Tweet Filter', tweets: Tweets, filter_topic: Topic });
+  res.render('index', { title: 'Com Tweet Filter', tweets: Tweets, filter_topic: Topic, trending_tweet: newTrendingTweet });
 });
 
 module.exports = router;

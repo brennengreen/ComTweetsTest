@@ -5,14 +5,13 @@ block content
   p A simple app to follow trending tweets live!
 
   h2 Featured Tweet:
-  <blockquote class="twitter-tweet" data-theme="light"><p lang="en" dir="ltr">Content</p>&mdash; Author (@Tag) <a href="https://twitter.com/Wendys/status/1262008215555858437?ref_src=twsrc%5Etfw">Date (which is also a hyperlink to the original, probably can remove this)</a></blockquote>
-
+  //<blockquote class="twitter-tweet" data-theme="light"><p lang="en" dir="ltr">Content</p>&mdash; Author (@Tag) <a href="https://twitter.com/Wendys/status/1262008215555858437?ref_src=twsrc%5Etfw">Date (which is also a hyperlink to the original, probably can remove this)</a></blockquote>
+  blockquote(class='twitter-tweet' data-theme='light')
+    p(lang="en")=trending_tweet.message
+    p=`—${trending_tweet.author}`
   hr
-  form(method='POST' action='/filter')
-    label(for='topic') Topic:   
-    input(type='text' name='filter' placeholder='topic keyword' topic='topic')
-    button(type='submit' value='OK') Filter Tweets
-  h2=`Tweets Mentioning: ${filter_topic}`
+  
+  h2=`Tweets Mentioning: \"${filter_topic}\"`
   - var n = 0;
   while n < 9 && n < tweets.length
       blockquote(class='twitter-tweet' data-theme='light')
